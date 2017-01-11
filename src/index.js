@@ -2,7 +2,7 @@ import { diffJson } from 'diff';
 import chalk from 'chalk';
 import { EOL } from 'os';
 import isNode from 'detect-node';
-import  browser  from 'detect-browser';
+import browser from 'detect-browser';
 
 export default store => next => action => {
   const currentState = store.getState();
@@ -36,7 +36,7 @@ export default store => next => action => {
     diff.forEach(part => {
       console.log(`%c${part.value}`, `color: ${part.color}`);
     });
-    if(browser.name === 'chrome'){
+    if (browser.name === 'chrome') {
       console.groupEnd();
     }
   }
