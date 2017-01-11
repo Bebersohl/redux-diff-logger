@@ -10,7 +10,7 @@ Supports node and browser.
 ## Install
 
 ```
-$ npm install --save-dev redux-log-diff
+$ npm install --save redux-log-diff
 ```
 
 ## Usage
