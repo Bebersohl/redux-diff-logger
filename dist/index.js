@@ -1,5 +1,3 @@
-'use strict';
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -15,6 +13,10 @@ var _os = require('os');
 var _detectNode = require('detect-node');
 
 var _detectNode2 = _interopRequireDefault(_detectNode);
+
+var _detectBrowser = require('detect-browser');
+
+var _detectBrowser2 = _interopRequireDefault(_detectBrowser);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47,11 +49,14 @@ exports.default = function (store) {
         });
         console.log(_os.EOL + '\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014');
       } else {
-        console.groupCollapsed(action.type + ' %c+' + positive + ' %c-' + negative, 'color: green', 'color: red');
+        var log = _detectBrowser2.default.name === 'chrome' ? console.groupCollapsed : console.log;
+        log(action.type + ' %c+' + positive + ' %c-' + negative, 'color: green', 'color: red');
         diff.forEach(function (part) {
           console.log('%c' + part.value, 'color: ' + part.color);
         });
-        console.groupEnd();
+        if (_detectBrowser2.default.name === 'chrome') {
+          console.groupEnd();
+        }
       }
 
       return result;
