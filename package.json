@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A simple redux middleware that logs changes to the state after every action.",
   "main": "dist/index.js",
+  "repository": "Bebersohl/redux-log-diff",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "babel --out-dir dist src",
