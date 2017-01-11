@@ -1,0 +1,13 @@
+{
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"rules": {
+		"arrow-parens": ["error", "as-needed"],
+		"no-console": "off",
+		"prefer-template": "off",
+		"no-param-reassign": "off"
+	},
+  "extends": "airbnb-base"
+}

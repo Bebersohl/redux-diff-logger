@@ -1,0 +1,36 @@
+{
+  "name": "redux-diff-logger",
+  "version": "1.0.0",
+  "description": "Redux middleware that logs state diffs",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "babel --out-dir dist src",
+    "lint": "eslint \"src/**/*.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "redux",
+    "logger",
+    "diff",
+    "middleware"
+  ],
+  "files": [
+    "dist"
+  ],
+  "author": "Brandon Ebersohl <brandon.ebersohl@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "6.18.0",
+    "babel-preset-es2015": "6.18.0",
+    "eslint": "3.13.0",
+    "eslint-config-airbnb-base": "11.0.1",
+    "eslint-plugin-import": "2.2.0",
+    "rimraf": "2.5.4"
+  },
+  "dependencies": {
+    "chalk": "1.1.3",
+    "detect-node": "2.0.3",
+    "diff": "3.2.0"
+  }
+}
