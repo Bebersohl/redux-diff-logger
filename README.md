@@ -1,4 +1,4 @@
-# redux-diff-logger
+# redux-log-diff
 
 A simple redux middleware that logs changes to the state after every action.
 
@@ -10,13 +10,13 @@ Supports node and browser.
 ## Install
 
 ```
-$ npm install --save-dev redux-diff-logger
+$ npm install --save-dev redux-log-diff
 ```
 
 ## Usage
 ```
 import { createStore, applyMiddleware } from 'redux';
-import logger from 'redux-diff-logger';
+import logger from 'redux-log-diff';
 
 const store = createStore(
   reducer,

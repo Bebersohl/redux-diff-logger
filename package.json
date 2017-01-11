@@ -1,7 +1,7 @@
 {
-  "name": "redux-diff-logger",
+  "name": "redux-log-diff",
   "version": "1.0.0",
-  "description": "Redux middleware that logs state diffs",
+  "description": "A simple redux middleware that logs changes to the state after every action.",
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -12,6 +12,7 @@
   "keywords": [
     "redux",
     "logger",
+    "log",
     "diff",
     "middleware"
   ],
