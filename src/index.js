@@ -24,6 +24,9 @@ export default store => next => action => {
 		}
 	});
 
+	let isChromeOrIE = function () {
+		return browser.name === 'chrome' || browser.name === 'ie';
+	};
 	if (isNode) {
 		console.log(chalk.white(action.type), chalk.green('+' + positive), chalk.red('-' + negative));
 		diff.forEach(part => {
@@ -31,12 +34,14 @@ export default store => next => action => {
 		});
 		console.log(`${EOL}——————————————————`);
 	} else {
-		const log = browser.name === 'chrome' ? console.groupCollapsed : console.log;
+		const log = isChromeOrIE() ? console.groupCollapsed : console.log;
 		log(`${action.type} %c+${positive} %c-${negative}`, 'color: green', 'color: red');
 		diff.forEach(part => {
 			console.log(`%c${part.value}`, `color: ${part.color}`);
 		});
-		console.groupEnd();
+		if (isChromeOrIE()) {
+			console.groupEnd();
+		}
 	}
 
 	return result;
