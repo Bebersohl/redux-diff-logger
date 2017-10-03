@@ -2,6 +2,7 @@ import {diffJson} from 'diff';
 import chalk from 'chalk';
 import {EOL} from 'os';
 import isNode from 'detect-node';
+import browser from 'detect-browser';
 
 export default store => next => action => {
 	const currentState = store.getState();
@@ -50,6 +51,7 @@ export default store => next => action => {
 		});
 		console.log(`${EOL}——————————————————`);
 	} else {
+		console.log('browser is ' + browser.name)
 		if (browser.name === 'chrome') {
 			logForChrome();
 		} else if (browser.name === 'ie') {
