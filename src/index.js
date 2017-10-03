@@ -2,7 +2,6 @@ import {diffJson} from 'diff';
 import chalk from 'chalk';
 import {EOL} from 'os';
 import isNode from 'detect-node';
-import browser from 'detect-browser';
 
 export default store => next => action => {
 	const currentState = store.getState();
@@ -24,8 +23,25 @@ export default store => next => action => {
 		}
 	});
 
-	let isChromeOrIE = function () {
-		return browser.name === 'chrome' || browser.name === 'ie';
+	let logForChrome = function () {
+		console.groupCollapsed(`${action.type} %c+${positive} %c-${negative}`, 'color: green', 'color: red');
+		diff.forEach(part => {
+			console.log(`%c${part.value}`, `color: ${part.color}`);
+		});
+		console.groupEnd();
+	};
+	let logForIE = function () {
+		console.groupCollapsed(`${action.type} +${positive} -${negative}`);
+		diff.forEach(part => {
+			console.log(`${part.value}`);
+		});
+		console.groupEnd();
+	};
+	let logForOther = function () {
+		console.log(`${action.type} +${positive} -${negative}`);
+		diff.forEach(part => {
+			console.log(`%c${part.value}`, `color: ${part.color}`);
+		});
 	};
 	if (isNode) {
 		console.log(chalk.white(action.type), chalk.green('+' + positive), chalk.red('-' + negative));
@@ -34,13 +50,12 @@ export default store => next => action => {
 		});
 		console.log(`${EOL}——————————————————`);
 	} else {
-		const log = isChromeOrIE() ? console.groupCollapsed : console.log;
-		log(`${action.type} %c+${positive} %c-${negative}`, 'color: green', 'color: red');
-		diff.forEach(part => {
-			console.log(`%c${part.value}`, `color: ${part.color}`);
-		});
-		if (isChromeOrIE()) {
-			console.groupEnd();
+		if (browser.name === 'chrome') {
+			logForChrome();
+		} else if (browser.name === 'ie') {
+			logForIE();
+		} else {
+			logForOther();
 		}
 	}
 
