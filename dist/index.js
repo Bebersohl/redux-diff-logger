@@ -69,11 +69,11 @@ exports.default = function (store) {
 				});
 				console.log(_os.EOL + '\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014\u2014');
 			} else {
-				console.log('browser is ' + _detectBrowser2.default.name);
 				if (_detectBrowser2.default.name === 'chrome') {
 					logForChrome();
 				} else if (_detectBrowser2.default.name === 'ie') {
-					logForIE();
+					//logForIE();
+					logForChrome();
 				} else {
 					logForOther();
 				}
