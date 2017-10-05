@@ -1,6 +1,6 @@
 {
   "name": "redux-log-diff",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple redux middleware that logs changes to the state after every action.",
   "main": "dist/index.js",
   "repository": "Bebersohl/redux-log-diff",
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "chalk": "1.1.3",
-    "detect-browser": "1.6.0",
+    "detect-browser": "1.6.2",
     "detect-node": "2.0.3",
     "diff": "3.2.0"
   }
