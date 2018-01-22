@@ -29,8 +29,8 @@ export default store => next => action => {
 
   const logForChrome = function () {
     console.groupCollapsed(`${action.type} %c+${positive} %c-${negative}`, 'color: green', 'color: red');
-    console.groupCollapsed('%cACTION', 'color: blue');
-    console.log(`%c${actionString}`, 'color: blue');
+    console.groupCollapsed('%cACTION', 'color: black');
+    console.log(`%c${actionString}`, 'color: black');
     console.groupEnd();
     diff.forEach(part => {
       console.log(`%c${part.value}`, `color: ${part.color}`);

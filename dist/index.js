@@ -47,8 +47,8 @@ exports.default = function (store) {
 
       var logForChrome = function logForChrome() {
         console.groupCollapsed(action.type + ' %c+' + positive + ' %c-' + negative, 'color: green', 'color: red');
-        console.groupCollapsed('%cACTION', 'color: blue');
-        console.log('%c' + actionString, 'color: blue');
+        console.groupCollapsed('%cACTION', 'color: black');
+        console.log('%c' + actionString, 'color: black');
         console.groupEnd();
         diff.forEach(function (part) {
           console.log('%c' + part.value, 'color: ' + part.color);
