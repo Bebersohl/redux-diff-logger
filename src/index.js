@@ -9,16 +9,19 @@ export default store => next => action => {
   const result = next(action);
   const nextState = store.getState();
   const diff = diffJson(currentState, nextState);
+  const params = Object.assign({}, action);
+  delete params.type;
+  const actionString = JSON.stringify(params, null, 2);
   let positive = 0;
   let negative = 0;
 
   diff.forEach(part => {
     if (part.added) {
       part.color = 'green';
-      positive += 1;
+      positive += part.count;
     } else if (part.removed) {
       part.color = 'red';
-      negative += 1;
+      negative += part.count;
     } else {
       part.color = 'grey';
     }
@@ -26,6 +29,9 @@ export default store => next => action => {
 
   const logForChrome = function () {
     console.groupCollapsed(`${action.type} %c+${positive} %c-${negative}`, 'color: green', 'color: red');
+    console.groupCollapsed('%cACTION', 'color: blue');
+    console.log(`%c${actionString}`, 'color: blue');
+    console.groupEnd();
     diff.forEach(part => {
       console.log(`%c${part.value}`, `color: ${part.color}`);
     });
@@ -33,6 +39,9 @@ export default store => next => action => {
   };
   const logForIE = function () {
     console.groupCollapsed(`${action.type} +${positive} -${negative}`);
+    console.groupCollapsed('ACTION');
+    console.log(`${actionString}`);
+    console.groupEnd();
     diff.forEach(part => {
       console.log(`${part.value}`);
     });
@@ -40,12 +49,14 @@ export default store => next => action => {
   };
   const logForOther = function () {
     console.log(`${action.type} +${positive} -${negative}`);
+    console.log(`${actionString}`);
     diff.forEach(part => {
       console.log(`%c${part.value}`, `color: ${part.color}`);
     });
   };
   if (isNode) {
     console.log(chalk.white(action.type), chalk.green('+' + positive), chalk.red('-' + negative));
+    console.log(chalk.blue(actionString));
     diff.forEach(part => {
       process.stderr.write(chalk[part.color]((part.value)));
     });

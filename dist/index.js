@@ -27,16 +27,19 @@ exports.default = function (store) {
       var result = next(action);
       var nextState = store.getState();
       var diff = (0, _diff.diffJson)(currentState, nextState);
+      var params = Object.assign({}, action);
+      delete params.type;
+      var actionString = JSON.stringify(params, null, 2);
       var positive = 0;
       var negative = 0;
 
       diff.forEach(function (part) {
         if (part.added) {
           part.color = 'green';
-          positive += 1;
+          positive += part.count;
         } else if (part.removed) {
           part.color = 'red';
-          negative += 1;
+          negative += part.count;
         } else {
           part.color = 'grey';
         }
@@ -44,6 +47,9 @@ exports.default = function (store) {
 
       var logForChrome = function logForChrome() {
         console.groupCollapsed(action.type + ' %c+' + positive + ' %c-' + negative, 'color: green', 'color: red');
+        console.groupCollapsed('%cACTION', 'color: blue');
+        console.log('%c' + actionString, 'color: blue');
+        console.groupEnd();
         diff.forEach(function (part) {
           console.log('%c' + part.value, 'color: ' + part.color);
         });
@@ -51,6 +57,9 @@ exports.default = function (store) {
       };
       var logForIE = function logForIE() {
         console.groupCollapsed(action.type + ' +' + positive + ' -' + negative);
+        console.groupCollapsed('ACTION');
+        console.log('' + actionString);
+        console.groupEnd();
         diff.forEach(function (part) {
           console.log('' + part.value);
         });
@@ -58,12 +67,14 @@ exports.default = function (store) {
       };
       var logForOther = function logForOther() {
         console.log(action.type + ' +' + positive + ' -' + negative);
+        console.log('' + actionString);
         diff.forEach(function (part) {
           console.log('%c' + part.value, 'color: ' + part.color);
         });
       };
       if (_detectNode2.default) {
         console.log(_chalk2.default.white(action.type), _chalk2.default.green('+' + positive), _chalk2.default.red('-' + negative));
+        console.log(_chalk2.default.blue(actionString));
         diff.forEach(function (part) {
           process.stderr.write(_chalk2.default[part.color](part.value));
         });
